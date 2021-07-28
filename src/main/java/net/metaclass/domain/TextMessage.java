@@ -1,6 +1,5 @@
 package net.metaclass.domain;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Map;
@@ -11,6 +10,8 @@ public class TextMessage implements Message<TextMessage> {
     private String sender;
     private String className;
     private Map<String, Object> data;
+
+    private TextMessage() {}
 
     public TextMessage(String event, String sender, String className, Map<String, Object> data) {
         this.event = event;
@@ -26,7 +27,7 @@ public class TextMessage implements Message<TextMessage> {
 
     @Override
     public TextMessage parse() {
-
+        return  null;
     }
 
     @Override

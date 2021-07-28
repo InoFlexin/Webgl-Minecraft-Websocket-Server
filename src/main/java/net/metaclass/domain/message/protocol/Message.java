@@ -6,4 +6,6 @@ public interface Message<T> {
 
     T parse(String json);
 
+    T get();
+
 }

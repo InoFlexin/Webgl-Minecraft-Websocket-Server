@@ -5,8 +5,12 @@ import net.metaclass.domain.message.TextMessage;
 import net.metaclass.domain.message.protocol.Message;
 import net.metaclass.domain.message.protocol.MessageWrapper;
 import net.metaclass.domain.session.SessionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SessionMiddlewareImpl implements BroadcasterMiddleware {
+
+    private static Logger logger = LoggerFactory.getLogger(SessionMiddlewareImpl.class);
 
     @Override
     public void bridge(MessageWrapper wrapper, SessionContext sessionContext) {
@@ -21,13 +25,14 @@ public class SessionMiddlewareImpl implements BroadcasterMiddleware {
             if(!sessionContext.existsSession(wrapper.getChannel())) {
                 sessionContext.registerUserSession(wrapper.getChannel(), textMessage.getClassName());
             }
+
         }
         else if(message instanceof CloseMessage) {
             CloseMessage closeMessage = (CloseMessage) message;
 
             if(sessionContext.existsSession(wrapper.getChannel())) {
                 sessionContext.disconnect(wrapper.getChannel());
-                System.out.println("Closed channel: " + closeMessage.toString());
+                logger.info("Closed channel: ", closeMessage, " ", wrapper.getChannel());
             }
         }
     }

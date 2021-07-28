@@ -7,10 +7,13 @@ import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
-    WebSocketServerHandshaker handshaker;
+    private WebSocketServerHandshaker handshaker;
+    private static Logger logger = LoggerFactory.getLogger(HttpServerHandler.class);
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -18,23 +21,23 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             HttpRequest httpRequest = (HttpRequest) msg;
             HttpHeaders headers = httpRequest.headers();
 
-            System.out.println("Http Request Received");
-            System.out.println("Connection: " + headers.get("Connection"));
-            System.out.println("Upgrade: " + headers.get("Upgrade"));
+            logger.info("HttpRequest Received");
+            logger.info("Connection: " + headers.get("Connection"));
+            logger.info("Upgrade: " + headers.get("Upgrade"));
 
             if(headers.get(HttpHeaderNames.CONNECTION).equalsIgnoreCase("Upgrade") &&
                     headers.get(HttpHeaderNames.UPGRADE).equalsIgnoreCase("WebSocket")) {
                 ctx.pipeline().replace(this, "websocketHandler", new WebSocketHandler());
 
-                System.out.println("WebSocketHandler added to the pipeline");
-                System.out.println("Opened Channel: " + ctx.channel());
-                System.out.println("Handshaking...");
+                logger.info("WebSocketHandler added to the pipeline");
+                logger.info("Opened Channel: " + ctx.channel());
+                logger.info("Handshaking...");
 
                 handleHandshake(ctx, httpRequest);
-                System.out.println("Handshake is done");
+                logger.info("Handshake is done");
             }
             else {
-                System.out.println("Incoming request is unknown");
+                logger.info("Incoming request is unknown");
             }
         }
     }

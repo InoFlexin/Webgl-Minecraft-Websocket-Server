@@ -49,8 +49,7 @@ public class SessionContext {
             List<Channel> channels = stringToChannel.get(className);
 
             channels.remove(channel);
-            channelToName.remove(className);
-            System.out.println("Disconnect: " + channel);
+            channelToName.remove(channel);
         }
     }
 
@@ -58,4 +57,11 @@ public class SessionContext {
         return stringToChannel.getOrDefault(className, new ArrayList<>());
     }
 
+    @Override
+    public String toString() {
+        return "SessionContext{" +
+                "channelToName=" + channelToName +
+                ", stringToChannel=" + stringToChannel +
+                '}';
+    }
 }

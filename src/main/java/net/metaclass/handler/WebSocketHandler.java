@@ -12,12 +12,15 @@ import net.metaclass.domain.message.protocol.WebSocketFrameWrapper;
 import net.metaclass.domain.message.receiver.MessageReceiverFactory;
 import net.metaclass.domain.message.protocol.MessageReceiver;
 import net.metaclass.domain.session.SessionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebSocketHandler extends ChannelInboundHandlerAdapter {
 
     private MessageBroadcaster messageBroadcaster;
     private SessionContext sessionContext;
     private MessageHandler messageHandler;
+    private static Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
     public WebSocketHandler() {
         this.sessionContext = new SessionContext();
@@ -32,8 +35,9 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
                 WebSocketFrame webSocketFrame = (WebSocketFrame) msg;
                 MessageReceiver receiver = MessageReceiverFactory.getFactory().getReceiver(webSocketFrame);
                 WebSocketFrameWrapper webSocketFrameWrapper = new WebSocketFrameWrapper(ctx.channel(), webSocketFrame);
-
                 MessageWrapper messageWrapper = receiver.receive(webSocketFrameWrapper);
+                logger.info("MessageWrapper: ", messageWrapper);
+
                 messageHandler.handleMessage(messageWrapper);
             } catch (UnsupportedWebSocketFrameException e) {
                 e.printStackTrace();

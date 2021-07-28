@@ -7,4 +7,3 @@ public interface TextMessageReceiver {
 
     TextMessage receive(WebSocketFrame webSocketFrame);
 
-}

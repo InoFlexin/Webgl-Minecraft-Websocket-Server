@@ -1,4 +1,4 @@
-package net.metaclass.domain;
+package net.metaclass.domain.message.protocol;
 
 public interface Message<T> {
 

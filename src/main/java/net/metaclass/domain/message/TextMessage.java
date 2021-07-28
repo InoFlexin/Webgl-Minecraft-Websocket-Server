@@ -1,9 +1,10 @@
-package net.metaclass.domain;
+package net.metaclass.domain.message;
 
 import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.metaclass.domain.message.protocol.Message;
 
 import java.util.Map;
 

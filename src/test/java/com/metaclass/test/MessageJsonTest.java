@@ -1,7 +1,7 @@
 package com.metaclass.test;
 
-import net.metaclass.domain.Message;
-import net.metaclass.domain.TextMessage;
+import net.metaclass.domain.message.protocol.Message;
+import net.metaclass.domain.message.TextMessage;
 import net.metaclass.domain.data.DataContext;
 import org.junit.jupiter.api.Test;
 

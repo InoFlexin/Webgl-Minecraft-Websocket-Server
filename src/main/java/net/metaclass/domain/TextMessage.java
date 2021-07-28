@@ -1,9 +1,15 @@
 package net.metaclass.domain;
 
 import com.google.gson.GsonBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TextMessage implements Message<TextMessage> {
 
     private String event;
@@ -11,23 +17,14 @@ public class TextMessage implements Message<TextMessage> {
     private String className;
     private Map<String, Object> data;
 
-    private TextMessage() {}
-
-    public TextMessage(String event, String sender, String className, Map<String, Object> data) {
-        this.event = event;
-        this.sender = sender;
-        this.className = className;
-        this.data = data;
-    }
-
     @Override
     public String toJson() {
         return new GsonBuilder().create().toJson(this);
     }
 
     @Override
-    public TextMessage parse() {
-        return  null;
+    public TextMessage parse(String json) {
+        return  new GsonBuilder().create().fromJson(json, getClass());
     }
 
     @Override

@@ -4,6 +4,6 @@ public interface Message<T> {
 
     String toJson();
 
-    T parse();
+    T parse(String json);
 
 }

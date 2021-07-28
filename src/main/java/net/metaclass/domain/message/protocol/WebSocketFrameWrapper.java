@@ -12,4 +12,11 @@ public class WebSocketFrameWrapper {
     private Channel channel;
     private WebSocketFrame webSocketFrame;
 
+    @Override
+    public String toString() {
+        return "WebSocketFrameWrapper{" +
+                "channel=" + channel +
+                ", webSocketFrame=" + webSocketFrame +
+                '}';
+    }
 }

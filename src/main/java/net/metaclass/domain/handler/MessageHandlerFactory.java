@@ -20,7 +20,7 @@ public class MessageHandlerFactory {
 
     private MessageHandlerFactory() {}
 
-    public <T> Optional<MessageHandler> getHandler(MessageWrapper<T> wrapper) {
+    public Optional<MessageHandler> getHandler(MessageWrapper wrapper) {
         Message message = wrapper.getMessage();
 
         if(message instanceof TextMessage) {

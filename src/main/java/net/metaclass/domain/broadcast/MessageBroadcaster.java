@@ -16,12 +16,11 @@ import java.util.Set;
 
 public class MessageBroadcaster {
 
-    private SessionContext sessionContext;
+    private static SessionContext sessionContext = new SessionContext();
     private Set<BroadcasterMiddleware> middlewareSet;
     private Logger logger = LoggerFactory.getLogger(MessageBroadcaster.class);
 
     public MessageBroadcaster(SessionContext sessionContext, BroadcasterMiddleware... middlewares) {
-        this.sessionContext = sessionContext;
         this.middlewareSet = new HashSet<>();
 
         initialize(middlewares);

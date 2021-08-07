@@ -16,13 +16,13 @@ public class TextMessage implements Message<TextMessage> {
     private String event;
     private String sender;
     private String className;
-    private Map<String, Object> data;
+    private Map<String, Object> element;
 
     public void copy(TextMessage message) {
         this.event = message.getEvent();
         this.sender = message.getSender();
         this.className = message.getClassName();
-        this.data = message.getData();
+        this.element = message.getElement();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TextMessage implements Message<TextMessage> {
                 "event='" + event + '\'' +
                 ", sender='" + sender + '\'' +
                 ", className='" + className + '\'' +
-                ", data=" + data +
+                ", data=" + element +
                 '}';
     }
 }

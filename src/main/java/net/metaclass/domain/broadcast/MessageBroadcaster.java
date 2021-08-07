@@ -48,8 +48,10 @@ public class MessageBroadcaster {
             String json = textMessage.toJson();
             List<Channel> channels = sessionContext.getChannelsInClass(className);
 
+            logger.info("channels: " + channels);
+            logger.info("Message: " + messageWrapper.getMessage().toString());
             broadcast(channels, json);
-            logger.info("Broadcast done. class_name=", className);
+            logger.info("Broadcast done. class_name=" + className);
         }
     }
 

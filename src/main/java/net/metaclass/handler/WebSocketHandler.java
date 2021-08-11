@@ -8,6 +8,7 @@ import net.metaclass.domain.broadcast.MessageBroadcaster;
 import net.metaclass.domain.broadcast.middleware.SessionMiddlewareImpl;
 import net.metaclass.domain.handler.MessageHandler;
 import net.metaclass.domain.message.exeception.UnsupportedWebSocketFrameException;
+import net.metaclass.domain.message.protocol.AbstractMessageReceiver;
 import net.metaclass.domain.message.protocol.MessageWrapper;
 import net.metaclass.domain.message.protocol.WebSocketFrameWrapper;
 import net.metaclass.domain.message.receiver.MessageReceiverFactory;
@@ -19,7 +20,6 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
 
     private MessageBroadcaster messageBroadcaster;
     private MessageHandler messageHandler;
-    private static Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
     public WebSocketHandler() {
         this.messageBroadcaster = new MessageBroadcaster(new SessionMiddlewareImpl());
@@ -31,9 +31,8 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
         if(msg instanceof WebSocketFrame) {
             try {
                 WebSocketFrame webSocketFrame = (WebSocketFrame) msg;
-                MessageReceiver receiver = MessageReceiverFactory.getFactory().getReceiver(webSocketFrame);
-                WebSocketFrameWrapper webSocketFrameWrapper = new WebSocketFrameWrapper(ctx.channel(), webSocketFrame);
-                MessageWrapper messageWrapper = receiver.receive(webSocketFrameWrapper);
+                AbstractMessageReceiver receiver = MessageReceiverFactory.getFactory().getReceiver(webSocketFrame);
+                MessageWrapper messageWrapper = receiver.receive(ctx.channel(), webSocketFrame);
 
                 messageHandler.handleMessage(messageWrapper);
             } catch (UnsupportedWebSocketFrameException e) {

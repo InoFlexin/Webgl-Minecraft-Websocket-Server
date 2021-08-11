@@ -4,7 +4,7 @@ import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import net.metaclass.domain.message.exeception.UnsupportedWebSocketFrameException;
-import net.metaclass.domain.message.protocol.MessageReceiver;
+import net.metaclass.domain.message.protocol.AbstractMessageReceiver;
 
 public class MessageReceiverFactory {
 
@@ -18,7 +18,7 @@ public class MessageReceiverFactory {
     }
     private MessageReceiverFactory() {}
 
-    public <T> MessageReceiver getReceiver(WebSocketFrame webSocketFrame) throws UnsupportedWebSocketFrameException {
+    public <T> AbstractMessageReceiver getReceiver(WebSocketFrame webSocketFrame) throws UnsupportedWebSocketFrameException {
         if(webSocketFrame instanceof TextWebSocketFrame) {
             return new TextMessageReceiverStrategy();
         }

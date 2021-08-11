@@ -2,12 +2,9 @@ package net.metaclass.domain.message.receiver;
 
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import net.metaclass.domain.message.TextMessage;
-import net.metaclass.domain.message.protocol.Message;
-import net.metaclass.domain.message.protocol.MessageReceiver;
-import net.metaclass.domain.message.protocol.MessageWrapper;
-import net.metaclass.domain.message.protocol.WebSocketFrameWrapper;
+import net.metaclass.domain.message.protocol.*;
 
-public class TextMessageReceiverStrategy implements MessageReceiver<TextMessage> {
+public class TextMessageReceiverStrategy extends AbstractMessageReceiver<TextMessage> {
 
     @Override
     public MessageWrapper<TextMessage> receive(WebSocketFrameWrapper webSocketFrameWrapper) {

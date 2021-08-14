@@ -62,7 +62,7 @@ public class MessageBroadcaster {
         for(Channel channel : channelGroup) {
             if(!senderChannel.equals(channel)) {
                 logger.info(senderChannel + "->" + channel);
-                channel.write(send);
+                channel.write(send.retain());
             }
         }
 

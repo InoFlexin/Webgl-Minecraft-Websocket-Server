@@ -9,10 +9,13 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import net.metaclass.initializer.HttpInitializer;
+import net.metaclass.ssl.SslUtil;
 
 public class Server {
 
     public static void main(String[] args) {
+        SslUtil sslUtil = new SslUtil();
+        sslUtil.load();
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -22,7 +25,7 @@ public class Server {
                     .group(bossGroup, workerGroup)
                         .channel(NioServerSocketChannel.class)
                         .handler(new LoggingHandler(LogLevel.INFO))
-                        .childHandler(new HttpInitializer());
+                        .childHandler(new HttpInitializer(sslUtil.getSslContext()));
 
             Channel channel = bootstrap.bind(9000).sync().channel();
             channel.closeFuture().sync();

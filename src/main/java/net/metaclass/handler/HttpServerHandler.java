@@ -58,6 +58,6 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     protected String getWebSocketURL(HttpRequest req) {
-        return "ws://" + req.headers().get("Host") + req.getUri();
+        return "wss://" + req.headers().get("Host") + req.getUri();
     }
 }
